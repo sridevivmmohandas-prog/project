@@ -1,0 +1,27 @@
+import re
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import HuggingFaceEmbeddings  # Local, no API
+from langchain.vectorstores import FAISS
+from langchain.llms import Ollama  # Local LLM (e.g., Llama3)
+from langchain.chains import RetrievalQA
+
+# Step 1: Load & Mask Customer Data (PDFs)
+loader = PyPDFLoader("customer_history.pdf")
+docs = loader.load()
+docs = [re.sub(r'\b\d{3}-\d{3}-\d{4}\b', '[PHONE]', doc.page_content) for doc in docs]  # Mask PII
+
+# Step 2: Chunk & Embed (Local)
+splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+chunks = splitter.split_documents(docs)
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+vectorstore = FAISS.from_documents(chunks, embeddings)
+
+# Step 3: Local LLM Chain (No cloud send)
+llm = Ollama(model="llama3.1")  # Download via ollama run llama3.1
+qa_chain = RetrievalQA.from_chain_type(llm, retriever=vectorstore.as_retriever())
+
+# Step 4: Query (e.g., via Streamlit/CLI)
+user_query = "I'm cold."  # Simulate geolocation: add "near Starbucks" context
+masked_context = qa_chain({"query": user_query + " Use customer history."})
+print(masked_context['result'])  # "Come inside Starbucks 50m away. 10% Hot Cocoa coupon from last visit."
