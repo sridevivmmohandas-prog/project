@@ -1,0 +1,17 @@
+import json
+
+# Load customer data
+with open("data/customer_data.json") as f:
+    customers = json.load(f)
+
+def get_personalized_response(user_id, message):
+    customer = customers.get(user_id, {})
+    if "cold" in message.lower():
+        return f"Come inside the Starbucks 50m away. We have a 10% coupon for Hot Cocoa."
+    return "Hello! How can I help you today?"
+
+# Simulate user query
+user_id = "user_123"
+message = "I'm cold."
+response = get_personalized_response(user_id, message)
+print(response)
