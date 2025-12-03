@@ -1,0 +1,5 @@
+date,campaign,impressions,clicks,spend
+2025-11-01,Campaign_A,1000,50,30
+2025-11-02,Campaign_A,1500,70,40
+2025-11-01,Campaign_B,800,20,15
+2025-11-02,Campaign_B,1200,35,25
