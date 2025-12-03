@@ -1,0 +1,32 @@
+# Hyper-Personalized Customer Support Agent
+
+## Overview
+Retail customers today expect **instant, personalized answers**—from store hours to order status. Standard chatbots often provide generic responses, which fail to engage users.  
+
+This project builds a **Hyper-Personalized Customer Support Agent** that understands **user context and history** to deliver specific, actionable responses.
+
+**Example Scenario:**  
+User: “I’m cold.”  
+Bot: “Come inside the Starbucks 50m away. We have a 10% coupon for Hot Cocoa.”
+
+---
+
+## Features
+- **Context-Aware Responses:** Understands customer location and history.  
+- **Personalized Offers:** Provides recommendations and discounts tailored to the user.  
+- **Retrieval-Augmented Generation (RAG):** Fetches information from customer-specific documents (e.g., PDFs).  
+- **Privacy-Conscious:** Masks sensitive data (phone numbers, emails) before processing.
+
+---
+
+## Technical Requirements
+- **Architecture:** RAG pipeline to fetch specific customer data.  
+- **Data Privacy:** No raw user data sent to public LLMs; sensitive info masked.  
+- **AI Capabilities:** Understands location, previous orders, and user context to generate personalized responses.
+
+---
+
+## Usage
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/sridevivmmohandas-prog/project.git
